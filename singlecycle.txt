@@ -1,0 +1,117 @@
+
+//SingleCycleMP
+module SingleCycleMP(Clk,Rst,pc,Instruction,OPA,OPB,ALUresult,Zero);
+parameter n=32;
+
+input Clk;
+
+output [38:0] Instruction;
+output [n-1:0]OPA,OPB,ALUresult;
+output [5:0] pc;
+output Zero,Rst;
+
+//IF
+PC Program_Counterd(Clk,1'b1,1'b1,pc);
+InstructionCache IC(Clk,pc,Instruction);
+
+
+
+//ID
+wire RegWriteA,RegWriteB;
+wire [3:0]RegNo;
+wire [2:0]ALUCtrl;
+
+control C1(Clk,Rst,Instruction,RegWriteA,RegWriteB,ALUCtrl);
+
+
+RegFile REGA(Clk,Rst,RegWriteA,Instruction[35:32],Instruction[31:0],OPA);
+RegFile REGB(Clk,Rst,RegWriteB,Instruction[35:32],Instruction[31:0],OPB);
+
+
+
+//EX
+ALU alu(Rst,OPA,OPB,ALUCtrl,ALUresult,Zero);
+
+
+endmodule
+
+
+
+
+
+
+
+
+///////////////
+/*
+//SingleCycleMP
+module tmpp(Clk,Rst,pc,Instruction,OPA,OPB,ALUresult,Zero);
+parameter n=32;
+input Clk;
+output [38:0] Instruction;
+output [n-1:0]OPA,OPB,ALUresult;
+output [5:0] pc;
+output Zero,Rst;
+//IF
+PC Program_Counterd(Clk,1'b1,1'b1,pc);
+InstructionCache IC(Clk,pc,Instruction);
+//ID
+wire RegWriteA,RegWriteB;
+wire [3:0]RegNo;
+wire [2:0]ALUCtrl;
+control C1(Clk,Rst,Instruction,RegWriteA,RegWriteB,ALUCtrl);
+RegFile REGA(Clk,Rst,RegWriteA,Instruction[35:32],Instruction[31:0],OPA);
+RegFile REGB(Clk,Rst,RegWriteB,Instruction[35:32],Instruction[31:0],OPB);
+//EX
+ALU alu(Rst,OPA,OPB,ALUCtrl,ALUresult,Zero);
+endmodule
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////
+
+
+
+//SingleCycleMP
+///////////////////////////////////  NOT USED ////////////////////////////////////////////////////////
+module SingleCycleMP(Clk,Rst,pc,Instruction,OPA,OPB,ALUresult,Zero);
+parameter n=32;
+input Clk;
+output [38:0] Instruction;
+output [n-1:0]OPA,OPB,ALUresult;
+output [5:0] pc;
+output Zero,Rst;
+//IF
+PC Program_Counterd(Clk,1'b1,1'b1,pc);
+InstructionCache IC(Clk,pc,Instruction);
+//ID
+wire RegWriteA,RegWriteB;
+wire [3:0]RegNo;
+wire [2:0]ALUCtrl;
+control C1(Clk,Rst,Instruction,RegWriteA,RegWriteB,ALUCtrl);
+RegFile REGA(Clk,Rst,RegWriteA,Instruction[35:32],Instruction[31:0],OPA);
+RegFile REGB(Clk,Rst,RegWriteB,Instruction[35:32],Instruction[31:0],OPB);
+//EX
+ALU alu(Rst,OPA,OPB,ALUCtrl,ALUresult,Zero);
+endmodule
+//////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,51 @@
+
+`timescale 1 ps/ 1 ps
+module top_vlg_vec_tst();
+// constants                                           
+// general purpose registers
+reg Clk;
+reg PC_RST;
+// wires                                               
+wire [31:0] ALUresult;
+wire [31:0] ID_OPA;
+wire [31:0] ID_OPB;
+wire [38:0] IF_Instruction;
+wire [5:0] IF_PC;
+wire Rst;
+wire Zero;
+
+// assign statements (if any)                          
+top i1 (
+// port map - connection between master ports and signals/registers   
+	.ALUresult(ALUresult),
+	.Clk(Clk),
+	.ID_OPA(ID_OPA),
+	.ID_OPB(ID_OPB),
+	.IF_Instruction(IF_Instruction),
+	.IF_PC(IF_PC),
+	.PC_RST(PC_RST),
+	.Rst(Rst),
+	.Zero(Zero)
+);
+initial 
+begin 
+#1000000 $stop;
+end 
+
+// Clk
+always
+begin
+	Clk = 1'b0;
+	Clk = #5000 1'b1;
+	#5000;
+end 
+
+// PC_RST
+initial
+begin
+	PC_RST = 1'b1;
+	PC_RST = #410000 1'b0;
+	PC_RST = #10000 1'b1;
+end 
+endmodule
+
